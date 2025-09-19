@@ -1,0 +1,37 @@
+numpy>=1.23
+pandas>=1.5
+matplotlib>=3.6
+scikit-learn>=1.2
+torch>=1.13
+rba_fl/
+ ├─ README.md
+ ├─ requirements.txt
+ ├─ build_labels.py          # fuzzy trust + silver labels (lấy từ rba_test.xlsx, lấy them dán nhãn)
+ ├─ fl_rba.py                # ANN-BN model, Client, Server (FedAvg), FL loop
+ ├─ run_experiments.py       # train centralized & FL, ablations, save figures, lưu 
+ ├─ plotting.py              # ROC, confusion matrices, policy trade-offs, curves
+ └─ data/
+     ├─ rba_test.xlsx        #     ;  
+     └─ rba_fuzzy_labels.csv # produced by build_labels.py 
+# requirement, Duy chay test trên máy remote
+numpy>=1.23
+pandas>=1.5
+matplotlib>=3.6
+scikit-learn>=1.2
+torch>=1.13
+
+# Duy viết, Huân chay thu nhe, màu tối quá, change color để hình sáng hơn dung blue và green
+
+
+# RBA Fuzzy + Federated Learning (ANN-BN, FedAvg)
+
+## Quick start
+```bash
+python -m venv .venv && source .venv/bin/activate  # or .venv\Scripts\activate on Windows
+pip install -r requirements.txt
+
+# 1) Build fuzzy trust + silver labels (lấy file excel co label)
+python build_labels.py --xlsx data/rba_test.xlsx --out data/rba_fuzzy_labels.csv
+
+# 2) Run experiments (centralized LR + FL ANN-BN + ablations + figures)
+python run_experiments.py --csv data/rba_fuzzy_labels.csv --out outputs
